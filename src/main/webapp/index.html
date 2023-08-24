@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Aircraft</title>
+    <link rel="stylesheet" type="text/css" href="index.css" />
+</head>
+<body>
+    <script src="index.js"></script>
+
+    <h2>Add a New Aircraft</h2>
+
+    <form id="AircraftForm">
+        <label for="Airline">Airline:</label>
+        <input type="text" id="Airline" name="Airline" required>
+
+        <label for="Manufacturer">Manufacturer:</label>
+        <input type="text" id="Manufacturer" name="Manufacturer" required>
+
+        <label for="Model">Aircraft Model:</label>
+        <input type="text" id="Model" name="Model" required>
+
+        <label for="numSeats">Number of Seats:</label>
+        <input type="number" id="numSeats" name="numSeats" step="0.01" required>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
