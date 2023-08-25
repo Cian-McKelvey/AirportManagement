@@ -7,7 +7,6 @@ import javax.websocket.OnError;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import MongoDB.SearchFilters;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -69,7 +68,7 @@ public class AppEndpoint {
 
         } catch (IOException e) {
             logger.error(e);
-            session.getBasicRemote().sendText(e.toString());
+            session.getBasicRemote().sendText(e.toString());// Remove once working properly
         }
     }
 
@@ -84,7 +83,7 @@ public class AppEndpoint {
 
         } catch (IOException e) {
             logger.error(e);
-            session.getBasicRemote().sendText(e.toString());
+            session.getBasicRemote().sendText(e.toString()); // Remove once working properly
         }
     }
 
@@ -95,13 +94,13 @@ public class AppEndpoint {
             session.getBasicRemote().sendText("Session has been terminated successfully");
         } catch (IOException e) {
             logger.error(e);
-            session.getBasicRemote().sendText(e.toString());
+            session.getBasicRemote().sendText(e.toString()); // Remove once working properly
         }
     }
 
     @OnError
     public void onError(Throwable throwable) throws IOException {
-        throwable.printStackTrace();
+        throwable.printStackTrace(); 
     }
 
 

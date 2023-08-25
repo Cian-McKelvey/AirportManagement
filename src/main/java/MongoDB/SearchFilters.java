@@ -19,12 +19,16 @@ public class SearchFilters {
 
 
     // Filters for aircraft information
-    public static Bson AirplaneManufacturerFilter(String manufacturer) {
+    public static Bson AircraftManufacturerFilter(String manufacturer) {
         return eq("Manufacturer", manufacturer);
     }
 
-    public static Bson AirplaneModelFilter(String model) {
+    public static Bson AircraftModelFilter(String model) {
         return eq("Model", model);
+    }
+
+    public static Bson AircraftOwnerFilter(String owner) {
+        return eq("Owner", owner); // Not sure if "Owner" is the correct search term, recheck
     }
 
 
@@ -59,7 +63,7 @@ public class SearchFilters {
     }
 
 
-    // Filters for booking information
+    // Filters for booking information - Isn't needed as of yet
     public static Bson BookingNumberFilter(ObjectId bookingNum) { // This is an int atm, will probably be changed to ObjectId soon though
         return eq("Booking Number", bookingNum);
     }
@@ -72,7 +76,7 @@ public class SearchFilters {
         return eq("Flight Info", flightInformation);
     }
 
-    // Could be used to find a full booking
+    // Could be used to find a full booking - Isn't needed as of yet
     public static Bson BookingNumberAndEmailFilter(ObjectId bookingNum, String email) { // Might not be used
         return and(eq("Booking Number", bookingNum), eq("Email", email));
     }
