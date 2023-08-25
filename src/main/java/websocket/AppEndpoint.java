@@ -69,6 +69,7 @@ public class AppEndpoint {
 
         } catch (IOException e) {
             logger.error(e);
+            session.getBasicRemote().sendText(e.toString());
         }
     }
 
@@ -83,6 +84,7 @@ public class AppEndpoint {
 
         } catch (IOException e) {
             logger.error(e);
+            session.getBasicRemote().sendText(e.toString());
         }
     }
 
@@ -93,6 +95,7 @@ public class AppEndpoint {
             session.getBasicRemote().sendText("Session has been terminated successfully");
         } catch (IOException e) {
             logger.error(e);
+            session.getBasicRemote().sendText(e.toString());
         }
     }
 
