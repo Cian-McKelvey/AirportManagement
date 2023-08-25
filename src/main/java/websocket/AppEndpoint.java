@@ -7,10 +7,12 @@ import javax.websocket.OnError;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import MongoDB.SearchFilters;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import domain.FlightInformation;
 import org.apache.logging.log4j.Logger;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecProvider;
@@ -22,6 +24,8 @@ import domain.Aircraft;
 import static properties.Constants.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
@@ -56,6 +60,13 @@ public class AppEndpoint {
         try {
             session.getBasicRemote().sendText("Session successfully connected");
             session.getBasicRemote().sendText("Database Connection Active");
+
+            // Adds all data from the database to a list and sends it to the socket
+            List<Aircraft> filteredAircraftList = new ArrayList<>();
+            aircraftMongoCollection.find().into(filteredAircraftList);
+            for (Aircraft aircraft : filteredAircraftList)
+                session.getBasicRemote().sendText(aircraft.toString());
+
         } catch (IOException e) {
             logger.error(e);
         }
@@ -66,9 +77,9 @@ public class AppEndpoint {
         System.out.println("Message Received: " + messageContent);
 
         try {
-            session.getBasicRemote().sendText("Message Received: " + messageContent);
             Aircraft aircraft = jsonToAircraft(messageContent);
             aircraftMongoCollection.insertOne(aircraft);
+            session.getBasicRemote().sendText("Message Received and inserted to database: " + messageContent);
 
         } catch (IOException e) {
             logger.error(e);
@@ -79,7 +90,7 @@ public class AppEndpoint {
     public void onClose(Session session) throws IOException {
         // WebSocket connection closes
         try {
-            session.getBasicRemote().sendText("Session ID: " + session.getId() + " has closed");
+            session.getBasicRemote().sendText("Session has been terminated successfully");
         } catch (IOException e) {
             logger.error(e);
         }
@@ -106,4 +117,12 @@ public class AppEndpoint {
         return aircraft;
     }
 
+    public static FlightInformation jsonToFlight(String flightJson) {
+        JSONObject jsonObject = new JSONObject(flightJson);
+        FlightInformation flight = new FlightInformation();
+
+        // Use setters here to create object from json
+
+        return flight;
+    }
 }
