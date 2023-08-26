@@ -8,10 +8,9 @@ import org.bson.types.ObjectId;
 
 public class Aircraft {
 
-    //@BsonId() // Not Sure if needed
-    //@BsonProperty("id")
-    private ObjectId id;
-    //@BsonRepresentation(BsonType.OBJECT_ID) // Not sure if needed
+    //@BsonId
+    //@BsonProperty("_id")
+    private ObjectId _id;
 
     @BsonProperty("Manufacturer")
     private String manufacturer;
@@ -30,7 +29,7 @@ public class Aircraft {
     // Find out how the BSON Unique object ID works and how to add it to newly created objects
     public Aircraft(String manufacturer, String model, String airlineOwner, int numSeats) {
 
-        this.id = new ObjectId();
+        this._id = new ObjectId();
         //this.id = ObjectId.get(); // another option not sure which is better rn
         this.manufacturer = manufacturer;
         this.model = model;
@@ -39,7 +38,7 @@ public class Aircraft {
     }
 
     public ObjectId getId() {
-        return id;
+        return _id;
     }
 
     public String getModel() {
